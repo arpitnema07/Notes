@@ -8,13 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.guide.notes.R
 import com.android.guide.notes.database.Note
 import com.android.guide.notes.database.NoteDataBase
 import com.android.guide.notes.database.NoteRepository
 import com.android.guide.notes.databinding.FragmentNoteListBinding
 
-class NoteList : Fragment() , INoteAdapter {
+class NoteList : Fragment(), INoteAdapter{
 
     private lateinit var viewModel: NoteListViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,16 +31,18 @@ class NoteList : Fragment() , INoteAdapter {
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = NoteAdapter(requireContext(),this)
+        val manager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+
+        val adapter = NoteAdapter(this)
+        binding.notesRecyclerView.layoutManager = manager
         binding.notesRecyclerView.adapter = adapter
 
-
-
-        viewModel.allNotes.observe(viewLifecycleOwner,{
+        viewModel.allNotes.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.updateList(it)
+                adapter.submitList(it)
             }
         })
+
         binding.addNoteBtn.setOnClickListener {
             findNavController().navigate(NoteListDirections.actionNoteListToAddFragment(-1))
         }
@@ -47,7 +50,6 @@ class NoteList : Fragment() , INoteAdapter {
 
         return binding.root
     }
-
 
     override fun onItemClicked(note: Note) {
         findNavController().navigate(NoteListDirections.actionNoteListToAddFragment(note.id))

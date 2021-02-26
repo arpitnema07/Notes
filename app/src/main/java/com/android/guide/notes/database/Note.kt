@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "notes_table")
-class Note(
+data class Note(
         @ColumnInfo(name = "title")
         var title:String,
         @ColumnInfo(name = "description")
@@ -20,11 +20,4 @@ class Note(
     val isEmpty
         get() = title.isEmpty() || text.isEmpty()
 
-    fun compare(note: Note):Boolean{
-        return title == note.title && text == note.text && id == note.id && date == note.date
-    }
-
-    fun compareWithNoDate(note: Note):Boolean{
-        return title == note.title && text == note.text && id == note.id
-    }
 }

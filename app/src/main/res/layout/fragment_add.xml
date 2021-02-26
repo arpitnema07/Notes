@@ -117,7 +117,7 @@
                     android:layout_margin="8dp"
                     android:background="@null"
                     android:hint="@string/add_description"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:padding="8dp"
                     android:text="@={addViewModel.note.text}"
                     app:layout_constraintEnd_toEndOf="parent"

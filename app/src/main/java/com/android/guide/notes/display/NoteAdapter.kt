@@ -1,59 +1,54 @@
 package com.android.guide.notes.display
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.guide.notes.R
 import com.android.guide.notes.database.Note
+import com.android.guide.notes.databinding.ItemNoteBinding
 
-class NoteAdapter(private val context: Context, private val listener: INoteAdapter) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
-
-        val notes = ArrayList<Note>()
-
+class NoteAdapter(private val listener: INoteAdapter) : ListAdapter<Note,NoteAdapter.ViewHolder>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewHolder = ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.item_note, parent, false)
-        )
-        viewHolder.deleteButton.setOnClickListener {
-            listener.onItemDelete(notes[viewHolder.adapterPosition])
-        }
-        viewHolder.main.setOnClickListener {
-            listener.onItemClicked(notes[viewHolder.adapterPosition])
-        }
-
-
-        return viewHolder
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = notes[position].title
-    }
-
-    override fun getItemCount(): Int {
-        return notes.size
+        holder.bind(getItem(position),listener)
     }
 
 
-    fun updateList(newList: List<Note>){
-        notes.clear()
-        notes.addAll(newList)
-
-        notifyDataSetChanged()
+    class ViewHolder private constructor(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Note, listener: INoteAdapter) {
+            binding.note = item
+            binding.executePendingBindings()
+            binding.clickListener = listener
+        }
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemNoteBinding.inflate(layoutInflater,parent,false)
+                return ViewHolder(binding)
+            }
+        }
     }
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val main: ConstraintLayout = itemView.findViewById(R.id.note_item)
-        val textView: TextView = itemView.findViewById(R.id.text)
-        val deleteButton: ImageView = itemView.findViewById(R.id.delete)
 
-    }
+
 }
+
 interface INoteAdapter{
     fun onItemClicked(note: Note)
     fun onItemDelete(note: Note)
+}
+
+class NoteDiffCallback:DiffUtil.ItemCallback<Note>(){
+    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem == newItem
+    }
+
 }
