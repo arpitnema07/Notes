@@ -1,9 +1,11 @@
 package com.android.guide.notes.addNote
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +31,7 @@ class AddFragment : Fragment() {
         // data source using Dao
         val dataSource = NoteRepository(NoteDataBase.getDatabase(application).noteDataBaseDao)
         // view model factory to use data source
-        val viewModelFactory = AddViewModelFactory(dataSource,requireActivity(),noteId)
+        val viewModelFactory = AddViewModelFactory(dataSource,noteId)
         // view Model
         val viewModel = ViewModelProvider(this, viewModelFactory)[AddViewModel::class.java]
 
@@ -42,7 +44,16 @@ class AddFragment : Fragment() {
                 showSnackBar()
             }
         })
+        viewModel.keyboard.observe(viewLifecycleOwner,{
+            if (it) {
+                (requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+                    .hideSoftInputFromWindow(
+                        (activity?.currentFocus ?: View(requireContext())).windowToken, 0
+                    )
 
+                activity?.onBackPressed()
+            }
+        })
         return binding.root
     }
 

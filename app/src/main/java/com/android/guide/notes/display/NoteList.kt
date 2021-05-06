@@ -29,7 +29,7 @@ class NoteList : Fragment(), INoteAdapter{
         viewModel = ViewModelProvider(this,viewModelFactory)[NoteListViewModel::class.java]
 
         binding.noteListViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         val manager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
 
@@ -37,7 +37,7 @@ class NoteList : Fragment(), INoteAdapter{
         binding.notesRecyclerView.layoutManager = manager
         binding.notesRecyclerView.adapter = adapter
 
-        viewModel.allNotes.observe(viewLifecycleOwner, {
+        viewModel.allNotes.observe(this.viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }

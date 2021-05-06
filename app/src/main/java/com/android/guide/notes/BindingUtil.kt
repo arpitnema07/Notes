@@ -21,7 +21,7 @@ fun TextView.setNoteTitleString(item: Note){
 fun TextView.setNoteTextString(item: Note){
     var t = item.text
     if (t.length>50){
-        t = t.substring(0..48) + context.getString(R.string.dot)
+        t = t.substring(0..50) + context.getString(R.string.dot)
     }
     text = t
 }

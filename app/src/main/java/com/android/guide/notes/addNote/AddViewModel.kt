@@ -1,8 +1,5 @@
 package com.android.guide.notes.addNote
 
-import android.app.Activity
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,10 +11,12 @@ import kotlinx.coroutines.launch
 
 class AddViewModel(
     private val database:NoteRepository,
-    private val activity: Activity,
-    private val id:Int) : ViewModel(){
+    private val id:Int
+    ) : ViewModel(){
 
     var note = MutableLiveData<Note>()
+    private var _keyboard = MutableLiveData<Boolean>()
+    var keyboard :LiveData<Boolean> = _keyboard
 
     private val _showSnackBar = MutableLiveData<Boolean>()
     val showSnackBar:LiveData<Boolean> = _showSnackBar
@@ -25,6 +24,7 @@ class AddViewModel(
     private var isEditing : Boolean = false
 
     init {
+
         isEditing = if(id==-1){
             ui(Note("",""))
             false
@@ -60,8 +60,7 @@ class AddViewModel(
         if (isEditing && note.value!!.isEmpty){
             deleteNote(note.value!!)
         }
-        hideKeyboard()
-        activity.onBackPressed()
+        _keyboard.value = true
     }
 
     private fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO){
@@ -76,10 +75,6 @@ class AddViewModel(
         database.delete(note)
     }
 
-    private fun hideKeyboard(): Boolean {
-        return (activity.applicationContext.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
-            .hideSoftInputFromWindow((activity.currentFocus ?: View(activity.applicationContext)).windowToken, 0)
-    }
 }
 
 
