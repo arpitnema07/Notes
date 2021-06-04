@@ -22,8 +22,8 @@ class NoteAdapter(private val listener: INoteAdapter) : ListAdapter<Note,NoteAda
     class ViewHolder private constructor(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Note, listener: INoteAdapter) {
             binding.note = item
-            binding.executePendingBindings()
             binding.clickListener = listener
+            binding.executePendingBindings()
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.android.guide.notes.R
 import com.android.guide.notes.database.NoteDataBase
 import com.android.guide.notes.database.NoteRepository
 import com.android.guide.notes.databinding.FragmentAddBinding
@@ -21,7 +19,7 @@ class AddFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
+        binding = FragmentAddBinding.inflate(inflater,container, false)
 
 
         val noteId = AddFragmentArgs.fromBundle(requireArguments()).id

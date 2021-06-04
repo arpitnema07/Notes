@@ -8,7 +8,10 @@
     <string name="back">back</string>
     <string name="done">Done</string>
     <string name="add_description">Add Description here</string>
-    <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure">Are you sure?\nDelete all Notes?</string>
     <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
     <string name="dot">…</string>
+    <string name="add_note_desc">Tap + to add new note</string>
+    <string name="delete_all">Delete All</string>
 </resources>

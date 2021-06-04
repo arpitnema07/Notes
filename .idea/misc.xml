@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Apps/Notes/app/src/main/res/layout-land/fragment_note_list.xml" value="0.28854166666666664" />
+        <entry key="..\:/Apps/Notes/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Apps/Notes/app/src/main/res/layout/fragment_add.xml" value="0.1" />
+        <entry key="..\:/Apps/Notes/app/src/main/res/layout/fragment_note_list.xml" value="0.22" />
+        <entry key="..\:/Apps/Notes/app/src/main/res/layout/item_note.xml" value="0.209375" />
+        <entry key="..\:/Notes/app/src/main/res/drawable/delete_white.xml" value="0.22552083333333334" />
         <entry key="..\:/Notes/app/src/main/res/drawable/ic_artboard_30.xml" value="0.22552083333333334" />
+        <entry key="..\:/Notes/app/src/main/res/drawable/list_bg.xml" value="0.22552083333333334" />
+        <entry key="..\:/Notes/app/src/main/res/layout-land/fragment_note_list.xml" value="0.22" />
+        <entry key="..\:/Notes/app/src/main/res/layout/activity_main.xml" value="0.20885416666666667" />
         <entry key="..\:/Notes/app/src/main/res/layout/fragment_add.xml" value="0.15896739130434784" />
+        <entry key="..\:/Notes/app/src/main/res/layout/fragment_note_list.xml" value="0.13405797101449277" />
       </map>
     </option>
   </component>

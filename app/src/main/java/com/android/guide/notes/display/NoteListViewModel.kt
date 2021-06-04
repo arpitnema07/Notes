@@ -17,4 +17,8 @@ class NoteListViewModel(private val repository: NoteRepository) : ViewModel() {
         repository.delete(note)
     }
 
+    fun deleteAllNote() = viewModelScope.launch(Dispatchers.IO){
+        repository.deleteAll()
+    }
+
 }
