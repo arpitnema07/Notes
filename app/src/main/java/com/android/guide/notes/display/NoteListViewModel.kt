@@ -3,11 +3,11 @@ package com.android.guide.notes.display
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.guide.notes.database.Note
-import com.android.guide.notes.database.NoteRepository
+import com.android.guide.notes.database.AppRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NoteListViewModel(private val repository: NoteRepository) : ViewModel() {
+class NoteListViewModel(private val repository: AppRepository) : ViewModel() {
 
 
     val allNotes = repository.allNotes

@@ -6,11 +6,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.android.guide.notes.databinding.ActivityMainBinding
-import com.android.guide.notes.display.NoteListDirections
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
-    private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
+    private val binding:ActivityMainBinding by contentView(R.layout.activity_main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpBottomNavigationAndFab()
@@ -24,12 +23,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             )
         }
 
-        // Set a custom animation for showing and hiding the FAB
-        binding.addNoteBtn.apply {
-            setOnClickListener {
-                moveToAddFrag()
-            }
-        }
+
 
 /*        bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
@@ -64,9 +58,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     }
 
-    private fun moveToAddFrag() {
-        findNavController(R.id.nav_host_fragment).navigate(NoteListDirections.actionNoteListToAddFragment(-1))
-    }
+//    private fun moveToAddFrag() {
+//        findNavController(R.id.nav_host_fragment).navigate(NoteListDirections.actionNoteListToAddFragment(-1))
+//    }
 
     override fun onDestinationChanged(
         controller: NavController,
@@ -74,9 +68,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         arguments: Bundle?
     ) {
 //        when(destination.id){
-//            R.id.noteList -> {
-//
-//            }
 //        }
     }
 

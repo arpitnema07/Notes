@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.android.guide.notes.database.NoteDataBase
-import com.android.guide.notes.database.NoteRepository
+import com.android.guide.notes.database.AppDataBase
+import com.android.guide.notes.database.AppRepository
 import com.android.guide.notes.databinding.FragmentAddBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +27,7 @@ class AddFragment : Fragment() {
         // context
         val application = requireNotNull(this.activity).application
         // data source using Dao
-        val dataSource = NoteRepository(NoteDataBase.getDatabase(application).noteDataBaseDao)
+        val dataSource = AppRepository(AppDataBase.getDatabase(application).noteDataBaseDao)
         // view model factory to use data source
         val viewModelFactory = AddViewModelFactory(dataSource,noteId)
         // view Model
@@ -38,8 +38,19 @@ class AddFragment : Fragment() {
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         viewModel.showSnackBar.observe(viewLifecycleOwner,{
-            if (it){
-                showSnackBar()
+            when (it) {
+                2 -> {
+                    showSnackBar("All Field required")
+                }
+                1 -> {
+                    showSnackBar("Saved Successfully")
+                }
+                3 -> {
+                    showSnackBar("Update Successfully")
+                }
+                4 -> {
+                    showSnackBar("Deleted Successfully")
+                }
             }
         })
         viewModel.keyboard.observe(viewLifecycleOwner,{
@@ -55,8 +66,8 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
-    private fun showSnackBar() {
-        Snackbar.make(binding.mainContentAddNote,"All Field required",Snackbar.LENGTH_SHORT).show()
+    private fun showSnackBar(s: String) {
+        Snackbar.make(binding.mainContentAddNote,s,Snackbar.LENGTH_SHORT).show()
     }
 
 }

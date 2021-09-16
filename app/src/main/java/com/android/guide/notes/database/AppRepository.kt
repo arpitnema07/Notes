@@ -2,7 +2,7 @@ package com.android.guide.notes.database
 
 import androidx.lifecycle.LiveData
 
-class NoteRepository(private val notesDao: NoteDao) {
+class AppRepository(private val notesDao: NoteDao) {
     val allNotes: LiveData<List<Note>> = notesDao.getAllNotes()
 
     suspend fun insert(note: Note){
