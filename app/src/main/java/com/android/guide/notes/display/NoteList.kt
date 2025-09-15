@@ -39,16 +39,16 @@ class NoteList : Fragment(), INoteAdapter{
         binding.notesRecyclerView.layoutManager = manager
         binding.notesRecyclerView.adapter = adapter
 
-        viewModel.allNotes.observe(this.viewLifecycleOwner, {
-                if (it.isEmpty()){
-                    binding.notesRecyclerView.visibility = View.INVISIBLE
-                    binding.empty.visibility = View.VISIBLE
-                } else{
-                    binding.empty.visibility = View.INVISIBLE
-                    binding.notesRecyclerView.visibility = View.VISIBLE
-                }
+        viewModel.allNotes.observe(this.viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.notesRecyclerView.visibility = View.INVISIBLE
+                binding.empty.visibility = View.VISIBLE
+            } else {
+                binding.empty.visibility = View.INVISIBLE
+                binding.notesRecyclerView.visibility = View.VISIBLE
+            }
             adapter.submitList(it)
-        })
+        }
 
 
         // Set a custom animation for showing and hiding the FAB

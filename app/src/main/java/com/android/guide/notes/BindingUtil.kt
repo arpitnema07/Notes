@@ -8,6 +8,7 @@ import com.android.guide.notes.database.Note
 /**
  * Created by Arpit Nema on 12/31/2020
  */
+
 @BindingAdapter("noteTitleString")
 fun TextView.setNoteTitleString(item: Note){
     var title = item.title

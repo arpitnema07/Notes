@@ -13,13 +13,13 @@ class DialogAlert : DialogFragment() {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.are_you_sure)
-                .setPositiveButton(R.string.yes,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // FIRE ZE MISSILES!
+                .setPositiveButton(R.string.yes
+                ) { _, _ ->
+                    // FIRE ZE MISSILES!
 
-                    })
+                }
                 .setNegativeButton(R.string.cancel,
-                    DialogInterface.OnClickListener { dialog, id ->
+                    DialogInterface.OnClickListener { _, _ ->
                         // User cancelled the dialog
                     })
             // Create the AlertDialog object and return it

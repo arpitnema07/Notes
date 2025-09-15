@@ -31,13 +31,13 @@ class AddFragment : Fragment() {
         // view model factory to use data source
         val viewModelFactory = AddViewModelFactory(dataSource,noteId)
         // view Model
-        val viewModel = ViewModelProvider(this, viewModelFactory)[AddViewModel::class.java]
+        val viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[AddViewModel::class.java]
 
 
         binding.addViewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
-        viewModel.showSnackBar.observe(viewLifecycleOwner,{
+        viewModel.showSnackBar.observe(viewLifecycleOwner) {
             when (it) {
                 2 -> {
                     showSnackBar("All Field required")
@@ -52,8 +52,8 @@ class AddFragment : Fragment() {
                     showSnackBar("Deleted Successfully")
                 }
             }
-        })
-        viewModel.keyboard.observe(viewLifecycleOwner,{
+        }
+        viewModel.keyboard.observe(viewLifecycleOwner) {
             if (it) {
                 (requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
                     .hideSoftInputFromWindow(
@@ -62,7 +62,7 @@ class AddFragment : Fragment() {
 
                 activity?.onBackPressed()
             }
-        })
+        }
         return binding.root
     }
 
